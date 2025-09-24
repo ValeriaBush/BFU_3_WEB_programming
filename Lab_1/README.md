@@ -28,14 +28,14 @@ code/about.html - HTML-страница с небольшой справкой �
 screenshots/ — все скриншоты
 
 📸 Скриншоты работы
-![Версия Docker](./screenshots/Dockers_version.png)
+![Версия Docker](https://github.com/ValeriaBush/BFU_3_WEB_programming/Lab_1/screenshots/Dockers_version.png)
 
-![Первый запуск](./screenshots/Container_first_run.png)
+![Первый запуск](https://github.com/ValeriaBush/BFU_3_WEB_programming/Lab_1/screenshots/Container_first_run.png)
 
-![Добавление index.html](./screenshots/Added_index_html.png)
+![Добавление index.html](https://github.com/ValeriaBush/BFU_3_WEB_programming/Lab_1/screenshots/Added_index_html.png)
 
-![Улучшение index.html](./screenshots/Updated_index_html.png)
+![Улучшение index.html](https://github.com/ValeriaBush/BFU_3_WEB_programming/Lab_1/screenshots/Updated_index_html.png)
 
-![Добавление about.html](./screenshots/Added_about_html.png)
+![Добавление about.html](https://github.com/ValeriaBush/BFU_3_WEB_programming/Lab_1/screenshots/Added_about_html.png)
 
 ✅ Результат Сервер в Docker успешно запущен, Nginx отдаёт мою HTML-страницу.
