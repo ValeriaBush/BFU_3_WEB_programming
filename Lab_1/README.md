@@ -29,14 +29,14 @@
 
 **📸 Скриншоты работы**
 
-![Версия Docker](https://github.com/ValeriaBush/BFU_3_WEB_programming/blob/main/Lab_1/screenshots/Dockers_version.png)
+![Версия Docker](https://github.com/ValeriaBush/BFU_3_WEB_programming/blob/71fa3a6bc6bc595bbc5af294dd315c60f411b91e/Lab_1/screenshots/Dockers_version.PNG)
 
-![Первый запуск](https://github.com/ValeriaBush/BFU_3_WEB_programming/blob/main/Lab_1/screenshots/Container_first_run.png)
+![Первый запуск](https://github.com/ValeriaBush/BFU_3_WEB_programming/blob/71fa3a6bc6bc595bbc5af294dd315c60f411b91e/Lab_1/screenshots/Container_first_run.PNG)
 
-![Добавление index.html](https://github.com/ValeriaBush/BFU_3_WEB_programming/blob/main/Lab_1/screenshots/Added_index_html.png)
+![Добавление index.html](https://github.com/ValeriaBush/BFU_3_WEB_programming/blob/71fa3a6bc6bc595bbc5af294dd315c60f411b91e/Lab_1/screenshots/Added_index_html.PNG)
 
-![Улучшение index.html](https://github.com/ValeriaBush/BFU_3_WEB_programming/blob/main/Lab_1/screenshots/Updated_index_html.png)
+![Улучшение index.html](https://github.com/ValeriaBush/BFU_3_WEB_programming/blob/71fa3a6bc6bc595bbc5af294dd315c60f411b91e/Lab_1/screenshots/Updated_index_html.PNG)
 
-![Добавление about.html](https://github.com/ValeriaBush/BFU_3_WEB_programming/blob/main/Lab_1/screenshots/Added_about_html.png)
+![Добавление about.html](https://github.com/ValeriaBush/BFU_3_WEB_programming/blob/71fa3a6bc6bc595bbc5af294dd315c60f411b91e/Lab_1/screenshots/Added_about_html.PNG)
 
 *✅ Результат Сервер в Docker успешно запущен, Nginx отдаёт мою HTML-страницу.*
