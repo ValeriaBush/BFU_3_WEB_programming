@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Заказ еды</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Заказ еды</h1>
+    
+    <form id="foodOrderForm">
+        <!-- Текстовое поле для имени -->
+        <div class="form-group">
+            <label for="name">Имя:</label>
+            <input type="text" id="name" name="name" placeholder="Введите ваше имя" required>
+        </div>
+
+        <!-- Поле для email -->
+        <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" placeholder="Введите ваш email" required>
+        </div>
+
+        <!-- Числовое поле для количества порций -->
+        <div class="form-group">
+            <label for="portions">Количество порций:</label>
+            <input type="number" id="portions" name="portions" min="1" max="10" value="1" required>
+        </div>
+
+        <!-- Выпадающий список для выбора блюда -->
+        <div class="form-group">
+            <label for="dish">Блюдо:</label>
+            <select id="dish" name="dish" required>
+                <option value="">Выберите блюдо</option>
+                <option value="pizza">Пицца Маргарита</option>
+                <option value="pasta">Паста Карбонара</option>
+                <option value="salad">Греческий салат</option>
+                <option value="burger">Бургер с говядиной</option>
+                <option value="sushi">Суши сет</option>
+            </select>
+        </div>
+
+        <!-- Поле для даты доставки -->
+        <div class="form-group">
+            <label for="deliveryDate">Дата доставки:</label>
+            <input type="date" id="deliveryDate" name="deliveryDate" required>
+        </div>
+
+        <!-- Чекбокс для добавления соуса -->
+        <div class="form-group">
+            <div class="checkbox-group">
+                <input type="checkbox" id="sauce" name="sauce" value="yes">
+                <label for="sauce">Добавить соус (+50 руб)</label>
+            </div>
+        </div>
+
+        <!-- Радио-кнопки для типа доставки -->
+        <div class="form-group">
+            <label>Тип доставки:</label>
+            <div class="radio-group">
+                <input type="radio" id="delivery_courier" name="deliveryType" value="courier" checked>
+                <label for="delivery_courier">Курьерская доставка</label>
+            </div>
+            <div class="radio-group">
+                <input type="radio" id="delivery_pickup" name="deliveryType" value="pickup">
+                <label for="delivery_pickup">Самовывоз</label>
+            </div>
+            <div class="radio-group">
+                <input type="radio" id="delivery_express" name="deliveryType" value="express">
+                <label for="delivery_express">Экспресс-доставка (30 мин)</label>
+            </div>
+        </div>
+
+        <!-- Кнопка отправки -->
+        <button type="submit">Заказать</button>
+    </form>
+
+    <!-- Блок для вывода результатов -->
+    <div id="result" class="result-container"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>
