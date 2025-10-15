@@ -9,7 +9,7 @@
 <body>
     <h1>Заказ еды</h1>
     
-    <form id="foodOrderForm">
+    <form id="foodOrderForm" action="process.php" method="POST">
         <!-- Текстовое поле для имени -->
         <div class="form-group">
             <label for="name">Имя:</label>
@@ -76,7 +76,7 @@
         <button type="submit">Заказать</button>
     </form>
 
-    <!-- Блок для вывода результатов -->
+    <!-- Блок для вывода результатов (оставлен, но будет пустым) -->
     <div id="result" class="result-container"></div>
 
     <script src="script.js"></script>
