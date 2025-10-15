@@ -1,6 +1,6 @@
 body {
     font-family: Arial, sans-serif;
-    max-width: 600px;
+    max-width: 800px;
     margin: 20px auto;
     padding: 20px;
     background-color: #f9f9f9;
@@ -55,7 +55,7 @@ input[type="radio"] {
 
 button {
     background-color: #4CAF50;
-    color: balck;
+    color: black;
     padding: 12px 30px;
     border: none;
     border-radius: 5px;
@@ -104,4 +104,136 @@ h1 {
     color: #333;
     min-width: 150px;
     display: inline-block;
+}
+
+.session-data {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    margin-bottom: 20px;
+}
+
+.session-data h2 {
+    color: #333;
+    margin-top: 0;
+}
+
+.session-data ul {
+    list-style: none;
+    padding: 0;
+}
+
+.session-data li {
+    padding: 8px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.session-data li:last-child {
+    border-bottom: none;
+}
+
+.container {
+    background-color: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+.data-section {
+    margin-bottom: 30px;
+}
+
+.data-section h2 {
+    color: #333;
+    border-bottom: 2px solid #4CAF50;
+    padding-bottom: 10px;
+}
+
+pre {
+    background-color: #f8f9fa;
+    padding: 15px;
+    border-radius: 5px;
+    border-left: 4px solid #4CAF50;
+    overflow-x: auto;
+}
+
+ul.orders-list {
+    list-style: none;
+    padding: 0;
+}
+
+ul.orders-list li {
+    background-color: #f8f9fa;
+    margin: 10px 0;
+    padding: 15px;
+    border-radius: 5px;
+    border-left: 4px solid #4CAF50;
+}
+
+.order-details {
+    font-size: 14px;
+    color: #666;
+    margin-top: 5px;
+}
+
+.no-data {
+    background-color: #f8f9fa;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    color: #666;
+}
+
+.links {
+    text-align: center;
+    margin-top: 30px;
+}
+
+.links a {
+    display: inline-block;
+    margin: 0 10px;
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+.links a:hover {
+    background-color: #45a049;
+}
+
+.error-container {
+    background-color: #ffe6e6;
+    padding: 20px;
+    border-radius: 10px;
+    border-left: 4px solid #ff4444;
+    margin-bottom: 20px;
+}
+
+.error-container h3 {
+    color: #cc0000;
+    margin-top: 0;
+}
+
+.error-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.error-list li {
+    color: #cc0000;
+    padding: 8px 0;
+    border-bottom: 1px solid #ffcccc;
+}
+
+.error-list li:last-child {
+    border-bottom: none;
+}
+
+.error-list li:before {
+    content: "⚠ ";
+    font-weight: bold;
 }
