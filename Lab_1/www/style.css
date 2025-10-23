@@ -237,3 +237,30 @@ ul.orders-list li {
     content: "⚠ ";
     font-weight: bold;
 }
+
+.user-info {
+    background-color: #e8f4fd;
+    padding: 20px;
+    border-radius: 10px;
+    border-left: 4px solid #2196F3;
+    margin-bottom: 20px;
+}
+
+.user-info h2 {
+    color: #1976D2;
+    margin-top: 0;
+}
+
+.user-info ul {
+    list-style: none;
+    padding: 0;
+}
+
+.user-info li {
+    padding: 8px 0;
+    border-bottom: 1px solid #bbdefb;
+}
+
+.user-info li:last-child {
+    border-bottom: none;
+}

@@ -8,37 +8,10 @@ $email = htmlspecialchars($_POST['email'] ?? '');
 $portions = htmlspecialchars($_POST['portions'] ?? '');
 $dish = htmlspecialchars($_POST['dish'] ?? '');
 $deliveryDate = htmlspecialchars($_POST['deliveryDate'] ?? '');
-$sauce = isset($_POST['sauce']) ? 'yes' : 'Нет';
+$sauce = isset($_POST['sauce']) ? 'Да' : 'Нет';
 $deliveryType = htmlspecialchars($_POST['deliveryType'] ?? '');
 
 $errors = [];
-
-if(empty(trim($name))) {
-    $errors[] = "Имя не может быть пустым";
-}
-
-if(empty(trim($email))) {
-    $errors[] = "Email не может быть пустым";
-} elseif(!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-    $errors[] = "Некорректный email";
-}
-
-if(empty($portions) || $portions < 1 || $portions > 10) {
-    $errors[] = "Количество порций должно быть от 1 до 10";
-}
-
-if(empty($dish)) {
-    $errors[] = "Необходимо выбрать блюдо";
-}
-
-if(empty($deliveryDate)) {
-    $errors[] = "Необходимо указать дату доставки";
-} else {
-    $minDate = date('Y-m-d');
-    if($deliveryDate < $minDate) {
-        $errors[] = "Дата доставки не может быть в прошлом";
-    }
-}
 
 if(!empty($errors)) {
     $_SESSION['errors'] = $errors;
@@ -68,6 +41,18 @@ unset($_SESSION['form_data']);
 
 $line = $name . ";" . $email . ";" . $portions . ";" . $dish . ";" . $deliveryDate . ";" . $sauce . ";" . $deliveryType . ";" . date('Y-m-d H:i:s') . "\n";
 file_put_contents("data.txt", $line, FILE_APPEND);
+
+require_once __DIR__ . '/vendor/autoload.php';
+require_once 'ApiClient.php';
+
+$api = new ApiClient();
+$url = 'https://www.themealdb.com/api/json/v1/1/categories.php';
+$apiData = $api->request($url);
+
+$_SESSION['api_data'] = $apiData;
+
+$cookieTime = time() + 3600;
+setcookie("last_submission", date('Y-m-d H:i:s'), $cookieTime, "/");
 
 header("Location: index.php");
 exit();
