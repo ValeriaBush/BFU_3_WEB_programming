@@ -3,6 +3,16 @@ session_start();
 require_once __DIR__ . '/vendor/autoload.php';
 require_once 'ApiClient.php';
 require_once 'UserInfo.php';
+require_once 'db.php';
+require_once 'FoodOrder.php';
+
+try {
+    $foodOrder = new FoodOrder($pdo);
+    $allOrders = $foodOrder->getAll();
+} catch (PDOException $e) {
+    $mysqlError = $e->getMessage();
+    $allOrders = [];
+}
 ?>
 <!DOCTYPE html>
 <html lang="ru">
@@ -46,7 +56,55 @@ require_once 'UserInfo.php';
     <?php endif; ?>
 
     <div class="session-data">
-        <h2>📋 Данные из сессии:</h2>
+        <h2>📋 Заказы из базы данных (MySQL):</h2>
+        <?php if(isset($mysqlError)): ?>
+            <div class="error-container">
+                <p>Ошибка подключения к MySQL: <?= $mysqlError ?></p>
+            </div>
+        <?php elseif(!empty($allOrders)): ?>
+            <div style="overflow-x: auto;">
+                <table style="width: 100%; border-collapse: collapse; margin-top: 15px;">
+                    <thead>
+                        <tr style="background-color: #f8f9fa;">
+                            <th style="padding: 12px; border: 1px solid #ddd; text-align: left;">ID</th>
+                            <th style="padding: 12px; border: 1px solid #ddd; text-align: left;">Имя</th>
+                            <th style="padding: 12px; border: 1px solid #ddd; text-align: left;">Email</th>
+                            <th style="padding: 12px; border: 1px solid #ddd; text-align: left;">Блюдо</th>
+                            <th style="padding: 12px; border: 1px solid #ddd; text-align: left;">Порции</th>
+                            <th style="padding: 12px; border: 1px solid #ddd; text-align: left;">Соус</th>
+                            <th style="padding: 12px; border: 1px solid #ddd; text-align: left;">Доставка</th>
+                            <th style="padding: 12px; border: 1px solid #ddd; text-align: left;">Дата</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach($allOrders as $order): ?>
+                            <tr>
+                                <td style="padding: 10px; border: 1px solid #ddd;"><?= $order['id'] ?></td>
+                                <td style="padding: 10px; border: 1px solid #ddd;"><?= htmlspecialchars($order['name']) ?></td>
+                                <td style="padding: 10px; border: 1px solid #ddd;"><?= htmlspecialchars($order['email']) ?></td>
+                                <td style="padding: 10px; border: 1px solid #ddd;"><?= htmlspecialchars($order['dish']) ?></td>
+                                <td style="padding: 10px; border: 1px solid #ddd; text-align: center;"><?= $order['portions'] ?></td>
+                                <td style="padding: 10px; border: 1px solid #ddd; text-align: center;"><?= $order['sauce'] ? '✅' : '❌' ?></td>
+                                <td style="padding: 10px; border: 1px solid #ddd;"><?= htmlspecialchars($order['delivery_type']) ?></td>
+                                <td style="padding: 10px; border: 1px solid #ddd;"><?= $order['delivery_date'] ?></td>
+                            </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
+            </div>
+            <p style="margin-top: 10px; color: #666; font-size: 14px;">
+                Всего заказов: <?= count($allOrders) ?>
+            </p>
+        <?php else: ?>
+            <div class="no-data">
+                <p>В базе данных пока нет заказов.</p>
+                <p>Заполните форму, чтобы увидеть данные здесь.</p>
+            </div>
+        <?php endif; ?>
+    </div>
+
+    <div class="session-data">
+        <h2>📋 Данные из сессии (последний заказ):</h2>
         <?php if(isset($_SESSION['name'])): ?>
             <ul>
                 <li><strong>Имя:</strong> <?= $_SESSION['name'] ?></li>
@@ -56,6 +114,9 @@ require_once 'UserInfo.php';
                 <li><strong>Дата доставки:</strong> <?= $_SESSION['deliveryDate'] ?></li>
                 <li><strong>Добавить соус:</strong> <?= $_SESSION['sauce'] ?></li>
                 <li><strong>Тип доставки:</strong> <?= $_SESSION['deliveryType'] ?></li>
+                <?php if(isset($_SESSION['mysql_order_id'])): ?>
+                    <li><strong>ID в MySQL:</strong> <?= $_SESSION['mysql_order_id'] ?></li>
+                <?php endif; ?>
                 <?php if(isset($_SESSION['form_submitted'])): ?>
                     <li><strong>Время отправки:</strong> <?= date('Y-m-d H:i:s', $_SESSION['form_submitted']) ?></li>
                 <?php endif; ?>
@@ -104,7 +165,6 @@ require_once 'UserInfo.php';
     <div class="links">
         <a href="form.html">Заполнить форму</a>
         <a href="view.php">Посмотреть все данные</a>
-        <a href="test-apiclient.php">Тест API</a>
     </div>
 </body>
 </html>

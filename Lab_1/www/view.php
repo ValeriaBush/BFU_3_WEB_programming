@@ -10,7 +10,38 @@
     <div class="container">
         <h1>Все сохранённые данные</h1>
         
-        <h2>История заказов:</h2>
+        <h2>История заказов из MySQL:</h2>
+        <?php
+        require_once 'db.php';
+        require_once 'FoodOrder.php';
+        
+        try {
+            $foodOrder = new FoodOrder($pdo);
+            $orders = $foodOrder->getAll();
+            
+            if(!empty($orders)) {
+                echo '<ul class="orders-list">';
+                foreach($orders as $order) {
+                    $sauceText = $order['sauce'] ? '✅ С соусом' : '❌ Без соуса';
+                    echo "<li>";
+                    echo "<strong>{$order['name']}</strong> ({$order['email']})";
+                    echo "<div class='order-details'>";
+                    echo "Порций: {$order['portions']} | Блюдо: {$order['dish']} | Дата доставки: {$order['delivery_date']}<br>";
+                    echo "Соус: $sauceText | Тип доставки: {$order['delivery_type']} | Время заказа: {$order['order_time']}";
+                    echo " | <strong>MySQL ID: {$order['id']}</strong>";
+                    echo "</div>";
+                    echo "</li>";
+                }
+                echo '</ul>';
+            } else {
+                echo "<li class='no-data'>В MySQL данных нет</li>";
+            }
+        } catch (PDOException $e) {
+            echo "<li class='no-data'>Ошибка подключения к MySQL: " . $e->getMessage() . "</li>";
+        }
+        ?>
+        
+        <h2>История заказов из файла (старая версия):</h2>
         <ul class="orders-list">
             <?php
             if(file_exists("data.txt")){
@@ -32,7 +63,7 @@
                         }
                     }
                 } else {
-                    echo "<li class='no-data'>Данных нет</li>";
+                    echo "<li class='no-data'>В файле данных нет</li>";
                 }
             } else {
                 echo "<li class='no-data'>Файл с данными не найден</li>";
