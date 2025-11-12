@@ -1,0 +1,5 @@
+Валерия;valeryabush2005@gmail.com;1;pizza;2025-10-29;Нет;courier;2025-10-29 20:19:18
+Валерия;valeryabush2005@gmail.com;1;burger;2025-10-31;Да;pickup;2025-10-29 20:50:55
+Валерия;valeryabush2005@gmail.com;1;pasta;2025-11-12;Нет;express;2025-11-12 18:28:19
+Валерия;valeryabush2005@gmail.com;1;pasta;2025-11-12;Нет;express;2025-11-12 18:30:05
+Валерия;valeryabush2005@gmail.com;1;burger;2025-11-13;Да;pickup;2025-11-12 18:30:27

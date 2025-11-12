@@ -3,6 +3,18 @@ session_start();
 require_once __DIR__ . '/vendor/autoload.php';
 require_once 'ApiClient.php';
 require_once 'UserInfo.php';
+
+$allOrders = [];
+$mysqlError = "MySQL отключен - используется Redis в lab6";
+
+try {
+    require_once 'App/Helpers/ClientFactory.php';
+    require_once 'App/SessionManager.php';
+    $redisConnected = true;
+} catch (Exception $e) {
+    $redisConnected = false;
+    $redisError = $e->getMessage();
+}
 ?>
 <!DOCTYPE html>
 <html lang="ru">
@@ -46,7 +58,40 @@ require_once 'UserInfo.php';
     <?php endif; ?>
 
     <div class="session-data">
-        <h2>📋 Данные из сессии:</h2>
+        <h2>📋 Lab 6 - Redis/Elasticsearch/Clickhouse</h2>
+        <p>Тематическое задание 3: <strong>Система сессий на Redis</strong></p>
+        
+        <h3>🔴 Статус Redis:</h3>
+        <?php if(isset($redisConnected) && $redisConnected): ?>
+            <p style="color: green;">✅ Redis подключен и готов к работе</p>
+        <?php else: ?>
+            <p style="color: red;">❌ Redis не подключен: <?= $redisError ?? 'Unknown error' ?></p>
+        <?php endif; ?>
+        
+        <h3>📊 Статус Elasticsearch:</h3>
+        <?php
+        try {
+            $apiClient = new ApiClient();
+            $esStatus = $apiClient->request('http://elasticsearch:9200/');
+            echo "<p style='color: green;'>✅ Elasticsearch работает</p>";
+        } catch (Exception $e) {
+            echo "<p style='color: red;'>❌ Elasticsearch: " . $e->getMessage() . "</p>";
+        }
+        ?>
+        
+        <h3>🐡 Статус Clickhouse:</h3>
+        <?php
+        try {
+            $chStatus = $apiClient->queryClickhouse('SELECT version()');
+            echo "<p style='color: green;'>✅ Clickhouse отвечает: " . htmlspecialchars($chStatus) . "</p>";
+        } catch (Exception $e) {
+            echo "<p style='color: orange;'>⚠️ Clickhouse: " . $e->getMessage() . "</p>";
+        }
+        ?>
+    </div>
+
+    <div class="session-data">
+        <h2>📋 Данные из сессии (последний заказ):</h2>
         <?php if(isset($_SESSION['name'])): ?>
             <ul>
                 <li><strong>Имя:</strong> <?= $_SESSION['name'] ?></li>
@@ -56,6 +101,9 @@ require_once 'UserInfo.php';
                 <li><strong>Дата доставки:</strong> <?= $_SESSION['deliveryDate'] ?></li>
                 <li><strong>Добавить соус:</strong> <?= $_SESSION['sauce'] ?></li>
                 <li><strong>Тип доставки:</strong> <?= $_SESSION['deliveryType'] ?></li>
+                <?php if(isset($_SESSION['mysql_order_id'])): ?>
+                    <li><strong>ID в MySQL:</strong> <?= $_SESSION['mysql_order_id'] ?></li>
+                <?php endif; ?>
                 <?php if(isset($_SESSION['form_submitted'])): ?>
                     <li><strong>Время отправки:</strong> <?= date('Y-m-d H:i:s', $_SESSION['form_submitted']) ?></li>
                 <?php endif; ?>
@@ -103,8 +151,9 @@ require_once 'UserInfo.php';
 
     <div class="links">
         <a href="form.html">Заполнить форму</a>
-        <a href="view.php">Посмотреть все данные</a>
-        <a href="test-apiclient.php">Тест API</a>
+        <a href="test-sessions.php">Тест сессий (Redis)</a>
+        <a href="test-all-services.php">Тест всех сервисов</a>
+        <a href="redis-test.php">Тест Redis</a>
     </div>
 </body>
 </html>
