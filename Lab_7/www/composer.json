@@ -1,0 +1,11 @@
+{
+    "require": {
+        "nmred/kafka-php": "^0.2.0",
+        "guzzlehttp/guzzle": "^7.8"
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "App/"
+        }
+    }
+}

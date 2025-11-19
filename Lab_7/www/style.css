@@ -1,0 +1,249 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    color: #333;
+    background-color: #f5f5f5;
+    padding: 20px;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+h1 {
+    color: #2c3e50;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+h2 {
+    color: #34495e;
+    margin: 20px 0 15px 0;
+    border-bottom: 2px solid #3498db;
+    padding-bottom: 5px;
+}
+
+h3 {
+    color: #2c3e50;
+    margin: 15px 0 10px 0;
+}
+
+/* Info Section */
+.info-section {
+    background: #f8f9fa;
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+.status-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+    margin-top: 10px;
+}
+
+.status-item {
+    padding: 10px;
+    background: white;
+    border-radius: 5px;
+    border-left: 4px solid #3498db;
+}
+
+.status-online {
+    color: #27ae60;
+    font-weight: bold;
+}
+
+.status-offline {
+    color: #e74c3c;
+    font-weight: bold;
+}
+
+/* Buttons */
+.actions {
+    display: flex;
+    gap: 15px;
+    margin: 25px 0;
+    flex-wrap: wrap;
+}
+
+.btn {
+    display: inline-block;
+    padding: 12px 25px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+    text-align: center;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.btn-primary {
+    background: #3498db;
+    color: white;
+}
+
+.btn-primary:hover {
+    background: #2980b9;
+}
+
+.btn-secondary {
+    background: #95a5a6;
+    color: white;
+}
+
+.btn-secondary:hover {
+    background: #7f8c8d;
+}
+
+.btn-info {
+    background: #9b59b6;
+    color: white;
+}
+
+.btn-info:hover {
+    background: #8e44ad;
+}
+
+/* Forms */
+.order-form {
+    background: #f8f9fa;
+    padding: 25px;
+    border-radius: 8px;
+    margin: 20px 0;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #2c3e50;
+}
+
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group input[type="number"],
+.form-group input[type="date"],
+.form-group select {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: border-color 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+    outline: none;
+    border-color: #3498db;
+}
+
+.checkbox-group,
+.radio-group {
+    margin: 10px 0;
+    display: flex;
+    align-items: center;
+}
+
+.checkbox-group input,
+.radio-group input {
+    margin-right: 10px;
+}
+
+.checkbox-group label,
+.radio-group label {
+    margin-bottom: 0;
+    font-weight: normal;
+    cursor: pointer;
+}
+
+/* Alerts */
+.alert {
+    padding: 15px;
+    border-radius: 5px;
+    margin: 20px 0;
+    border-left: 4px solid;
+}
+
+.alert-success {
+    background: #d4edda;
+    border-color: #28a745;
+    color: #155724;
+}
+
+.alert-error {
+    background: #f8d7da;
+    border-color: #dc3545;
+    color: #721c24;
+}
+
+/* Instructions */
+.instructions {
+    background: #e8f4fd;
+    padding: 20px;
+    border-radius: 8px;
+    margin-top: 25px;
+}
+
+.instructions ol {
+    margin-left: 20px;
+    margin-bottom: 15px;
+}
+
+.instructions code {
+    background: #2c3e50;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 5px;
+    font-family: 'Courier New', monospace;
+    display: block;
+    margin: 10px 0;
+}
+
+.back-link {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.back-link a {
+    color: #3498db;
+    text-decoration: none;
+}
+
+.back-link a:hover {
+    text-decoration: underline;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+    .container {
+        padding: 15px;
+    }
+    
+    .actions {
+        flex-direction: column;
+    }
+    
+    .btn {
+        width: 100%;
+    }
+}

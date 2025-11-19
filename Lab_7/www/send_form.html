@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API отправки в Kafka - Lab 7</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .api-response {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+            white-space: pre-wrap;
+            font-family: monospace;
+        }
+        .success-response { border-left: 4px solid #28a745; }
+        .error-response { border-left: 4px solid #dc3545; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📨 API отправки в Kafka</h1>
+        
+        <div class="actions">
+            <a href="index.php" class="btn btn-primary">← На главную</a>
+            <a href="form.php" class="btn btn-secondary">📝 Веб-форма</a>
+        </div>
+
+        <div class="info-section">
+            <h2>🔧 Тестирование API</h2>
+            <p>Эта страница демонстрирует работу API для отправки сообщений в Kafka.</p>
+        </div>
+
+        <form id="apiForm" class="order-form">
+            <div class="form-group">
+                <label for="apiName">👤 Имя:</label>
+                <input type="text" id="apiName" name="name" value="Тестовый пользователь" required>
+            </div>
+
+            <div class="form-group">
+                <label for="apiEmail">📧 Email:</label>
+                <input type="email" id="apiEmail" name="email" value="test@example.com" required>
+            </div>
+
+            <div class="form-group">
+                <label for="apiPortions">🍽️ Количество порций:</label>
+                <input type="number" id="apiPortions" name="portions" min="1" max="10" value="2" required>
+            </div>
+
+            <div class="form-group">
+                <label for="apiDish">🍕 Блюдо:</label>
+                <select id="apiDish" name="dish" required>
+                    <option value="pizza">Пицца Маргарита</option>
+                    <option value="pasta">Паста Карбонара</option>
+                    <option value="salad">Греческий салат</option>
+                    <option value="burger">Бургер с говядиной</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="apiDeliveryDate">📅 Дата доставки:</label>
+                <input type="date" id="apiDeliveryDate" name="deliveryDate" required>
+            </div>
+
+            <div class="form-group">
+                <label>🥫 Добавить соус?</label>
+                <div class="checkbox-group">
+                    <input type="checkbox" id="apiSauce" name="sauce" value="1" checked>
+                    <label for="apiSauce">Да, добавить соус</label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>🚚 Тип доставки:</label>
+                <div class="radio-group">
+                    <input type="radio" id="apiCourier" name="deliveryType" value="courier" checked>
+                    <label for="apiCourier">Курьерская доставка</label>
+                </div>
+                <div class="radio-group">
+                    <input type="radio" id="apiPickup" name="deliveryType" value="pickup">
+                    <label for="apiPickup">Самовывоз</label>
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary">📨 Отправить через API</button>
+        </form>
+
+        <div id="apiResponse" class="api-response" style="display: none;">
+        </div>
+
+        <div class="instructions">
+            <h3>🎯 Использование API</h3>
+            <p><strong>Endpoint:</strong> POST /send.php</p>
+            <p><strong>Параметры:</strong></p>
+            <ul>
+                <li><code>name</code> - Имя пользователя</li>
+                <li><code>email</code> - Email</li>
+                <li><code>portions</code> - Количество порций (1-10)</li>
+                <li><code>dish</code> - Блюдо (pizza, pasta, salad, burger)</li>
+                <li><code>deliveryDate</code> - Дата доставки</li>
+                <li><code>sauce</code> - Добавить соус (0 или 1)</li>
+                <li><code>deliveryType</code> - Тип доставки</li>
+            </ul>
+            
+            <h4>📝 Пример curl запроса:</h4>
+            <code>
+curl -X POST http://localhost:8080/send.php \<br>
+  -H "Content-Type: application/x-www-form-urlencoded" \<br>
+  -d "name=API User&email=api@test.com&portions=3&dish=burger&deliveryDate=2024-11-20&sauce=1&deliveryType=courier"
+            </code>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('apiDeliveryDate').min = new Date().toISOString().split('T')[0];
+        document.getElementById('apiDeliveryDate').value = new Date().toISOString().split('T')[0];
+
+        document.getElementById('apiForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(this);
+            const responseDiv = document.getElementById('apiResponse');
+            
+            responseDiv.style.display = 'block';
+            responseDiv.innerHTML = '⏳ Отправка запроса...';
+            responseDiv.className = 'api-response';
+            
+            fetch('send.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    responseDiv.className = 'api-response success-response';
+                    responseDiv.innerHTML = '✅ ' + data.message + '\n\n' + 
+                                           '📊 Данные:\n' + JSON.stringify(data.data, null, 2);
+                } else {
+                    responseDiv.className = 'api-response error-response';
+                    responseDiv.innerHTML = '❌ ' + data.message;
+                }
+            })
+            .catch(error => {
+                responseDiv.className = 'api-response error-response';
+                responseDiv.innerHTML = '❌ Ошибка сети: ' + error.message;
+            });
+        });
+    </script>
+</body>
+</html>
